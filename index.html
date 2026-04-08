@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Corações Pulsantes</title>
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: #0b0b1f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+    }
+
+    .hearts {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        transform: rotate(45deg);
+        animation: pulse 1.5s infinite;
+        opacity: 0.8;
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        border-radius: 50%;
+    }
+
+    .heart::before {
+        top: -10px;
+        left: 0;
+    }
+
+    .heart::after {
+        left: -10px;
+        top: 0;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1) rotate(45deg); }
+        50% { transform: scale(1.3) rotate(45deg); }
+        100% { transform: scale(1) rotate(45deg); }
+    }
+
+    /* Texto */
+    .message {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-size: 3em;
+        opacity: 0;
+        animation: fadeIn 3s ease forwards;
+        animation-delay: 3s;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="hearts"></div>
+<div class="message">e a tiguirra em?</div>
+
+<script>
+    const container = document.querySelector('.hearts');
+
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+
+        // posição aleatória na tela inteira
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = Math.random() * 100 + "vh";
+
+        // tamanho variado
+        const size = Math.random() * 20 + 10;
+        heart.style.width = size + "px";
+        heart.style.height = size + "px";
+
+        // velocidade de pulsação aleatória
+        heart.style.animationDuration = (Math.random() * 1 + 1) + "s";
+
+        container.appendChild(heart);
+    }
+
+    // cria vários corações espalhados
+    for (let i = 0; i < 80; i++) {
+        createHeart();
+    }
+</script>
+
+</body>
+</html>
